@@ -1,0 +1,19 @@
+NOTE: New TI calculators have this one built in. This is specifically for older TI83 models.
+
+This is a TI Basic program that will calculate the inverse t-cdf given df and left area. 
+If you copy this code line for line into a new program using the "prgm" 
+button on your calculator you will be able to use this.
+
+
+Input "LEFT AREA?",A
+Input "DF?",D
+solve(A-tcdf(-10^99,X,D),X,0)→T
+Disp T
+
+
+To test if you've correctly built the program, use these values to test your function.
+
+Area, Degrees of freedom, result
+.9,25,1.316345073
+.8,35,0.8520118881
+.99,7,2.997951566

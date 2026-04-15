@@ -1,0 +1,182 @@
+This is a TI-Basic program that performs a one-sample chi-squared hypothesis
+test for a population variance or standard deviation. It mimics the interface
+of the built-in Z-Test and T-Test on the TI-84.
+
+It tests H₀: σ = σ₀ (null std dev) against a chosen alternative.
+The test statistic is χ² = (n-1)·s² / σ₀², with df = n-1.
+
+If you copy this code line for line into a new program using the "prgm"
+button on your calculator you will be able to use this.
+
+SUGGESTED PROGRAM NAME: CHITEST
+
+NOTES ON SPECIAL CHARACTERS:
+  χ²cdf, χ²pdf, Shadeχ²  —  found in 2nd > DISTR (or DRAW > SHADE for Shadeχ²)
+  solve(                  —  found in MATH > Solver... or CATALOG
+  Menu(                   —  found in PRGM > CTL
+  ≠                       —  found in 2nd > TEST (2nd > MATH)
+  →                       —  the STO> key (below the DEL key)
+  ^                       —  the caret key for exponents
+
+
+
+
+ClrHome
+Disp "CHI-SQ VAR TEST"
+Input "NULL STD DEV?",S
+Input "SAMP STD DEV?",A
+Input "SAMPLE SIZE?",N
+Input "ALPHA?",Q
+(N-1)→D
+(N-1)*A^2/S^2→C
+χ²cdf(0,C,D)→U
+1-U→V
+Menu("ALTERNATIVE","≠ STD DEV",1,"< STD DEV",2,"> STD DEV",3)
+
+Lbl 1
+2*min(U,V)→P
+max(0,min(1,P))→P
+Q/2→W
+solve(χ²cdf(0,T,D)-W,T,D/2)→L
+solve(χ²cdf(T,10^99,D)-W,T,D+2*√(2*D))→R
+1→H
+Goto 4
+
+Lbl 2
+U→P
+max(0,min(1,P))→P
+solve(χ²cdf(0,T,D)-Q,T,D/2)→L
+0→R
+2→H
+Goto 4
+
+Lbl 3
+V→P
+max(0,min(1,P))→P
+0→L
+solve(χ²cdf(T,10^99,D)-Q,T,D+2*√(2*D))→R
+3→H
+
+Lbl 4
+Menu("RESULTS","CALCULATE",5,"DRAW",6)
+
+Lbl 5
+ClrHome
+Output(1,1,"CHI-SQ TEST")
+Output(2,1,"χ²=")
+Output(2,4,C)
+Output(3,1,"p=")
+Output(3,3,P)
+Output(4,1,"df=")
+Output(4,4,D)
+Output(5,1,"a=")
+Output(5,3,Q)
+Output(6,1,"Lχ²=")
+If H=3
+Output(6,5,"NA")
+If H≠3
+Output(6,5,L)
+Output(7,1,"Rχ²=")
+If H=2
+Output(7,5,"NA")
+If H≠2
+Output(7,5,R)
+Output(8,1,"n=")
+Output(8,3,N)
+Pause 
+Stop
+
+Lbl 6
+If D>2
+Then
+1.4*χ²pdf(D-2,D)→Ymax
+Else
+1.5→Ymax
+End
+0→Xmin
+max(max(D+4*√(2*D),1.1*C),1.1*R)→Xmax
+0→Ymin
+ClrDraw
+AxesOn 
+If H=2
+Then
+Shadeχ²(0,L,D)
+End
+If H=3
+Then
+Shadeχ²(R,Xmax,D)
+End
+If H=1
+Then
+Shadeχ²(0,L,D)
+Shadeχ²(R,Xmax,D)
+End
+Pause 
+ClrHome
+Output(1,1,"CHI-SQ TEST")
+Output(2,1,"χ²=")
+Output(2,4,C)
+Output(3,1,"p=")
+Output(3,3,P)
+Output(4,1,"df=")
+Output(4,4,D)
+Output(5,1,"a=")
+Output(5,3,Q)
+Output(6,1,"Lχ²=")
+If H=3
+Output(6,5,"NA")
+If H≠3
+Output(6,5,L)
+Output(7,1,"Rχ²=")
+If H=2
+Output(7,5,"NA")
+If H≠2
+Output(7,5,R)
+Output(8,1,"n=")
+Output(8,3,N)
+Pause 
+Stop
+
+
+
+
+HOW IT WORKS:
+
+  Inputs:
+    σ₀  (NULL STD DEV)  —  the hypothesized population standard deviation
+    s   (SAMP STD DEV)  —  the sample standard deviation
+    n   (SAMPLE SIZE)   —  the sample size
+
+  Test statistic:   χ² = (n-1)·s² / σ₀²
+  Degrees of freedom:  df = n - 1
+
+  P-value by alternative hypothesis:
+    ≠   two-tailed:   p = 2 · min(χ²cdf(0,χ²,df), χ²cdf(χ²,∞,df))
+    <   left-tailed:  p = χ²cdf(0, χ², df)
+    >   right-tailed: p = χ²cdf(χ², ∞, df)
+
+  For DRAW: the shaded region is the p-value area on the χ² curve.
+  For the two-tailed case, both equal-area tails are shaded.
+  After pressing ENTER on the graph, the numeric results are displayed.
+
+  Variable usage:
+    S = null std dev (σ₀)       C = chi-squared test statistic
+    A = sample std dev (s)      D = degrees of freedom
+    N = sample size             P = p-value
+    H = alternative (1/2/3)     K = mirror critical value (draw only)
+    T = solver variable (draw)
+
+
+
+
+TEST VALUES (to verify your program):
+
+  H₀: σ = 10,  s = 12,  n = 25  →  df = 24,  χ² = 34.56
+    ≠ p ≈ 0.1527
+    < p ≈ 0.9237
+    > p ≈ 0.0763
+
+  H₀: σ = 5,   s = 4,   n = 21  →  df = 20,  χ² = 12.8
+    ≠ p ≈ 0.2334
+    < p ≈ 0.1167
+    > p ≈ 0.8833
