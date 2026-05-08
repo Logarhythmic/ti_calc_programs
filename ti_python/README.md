@@ -9,6 +9,7 @@ TI Python is a subset of MicroPython available on compatible TI calculators. Pro
 ## File Types
 
 - **`.py`** — Python source files that can be read and edited on any computer.
+- **`.md`** — Markdown documentation describing each program, source code, behavior, and test inputs.
 - **`.8xv`** — Compiled variable files for transfer to the calculator.
 
 ## Transferring Programs to Your Calculator
@@ -18,3 +19,12 @@ TI Python is a subset of MicroPython available on compatible TI calculators. Pro
 3. Open TI Connect CE, then drag and drop the file onto your calculator.
 
 The script will appear under the Python app on your calculator.
+
+## Contributing
+
+When adding a TI Python program, include a matching `.md` file next to the `.py` source with:
+
+- a short description
+- the full source code
+- a brief explanation of how it works
+- test inputs and expected outputs
