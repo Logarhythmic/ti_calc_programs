@@ -6,6 +6,10 @@ A TI Basic program that calculates a chi-squared confidence interval for a popul
 
 Enter the program line by line using the `PRGM` button on your calculator.
 
+## Program in Action
+
+![CHINTER running on the calculator](../images/chinter.gif)
+
 ## Code
 
 ```

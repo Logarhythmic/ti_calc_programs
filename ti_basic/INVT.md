@@ -8,6 +8,10 @@ A TI Basic program that calculates the inverse t-CDF (i.e., the t-value correspo
 
 Enter the program line by line using the `PRGM` button on your calculator.
 
+## Program in Action
+
+![INVT running on the calculator](../images/invt.gif)
+
 ## Code
 
 ```
