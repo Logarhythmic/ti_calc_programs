@@ -22,6 +22,17 @@ A collection of small programs written for TI-83/84 series graphing calculators.
 
 The `.md` files in `ti_basic/` contain the source code for each program in a fenced code block, along with a description, explanation of how it works, and test inputs to verify the program was entered correctly.
 
+### Adding animated examples
+
+Put emulator PNG recordings in `animated_png/` and run:
+
+```shell
+python -m pip install -r requirements.txt
+python convert_animated_pngs.py
+```
+
+The script converts each PNG to a GIF under `images/`, preserving any subfolders. It skips a PNG when its matching GIF already exists. The source PNGs are git-ignored; GIFs in `images/` can be committed and embedded in Markdown, for example `![Program running](images/example.gif)`.
+
 ## Contributing
 
 Feel free to open an issue or pull request if you have a program to share or an improvement to suggest. When contributing a TI Basic program, please include a `.md` documentation file formatted as described in [`ti_basic/README.md`](ti_basic/README.md).

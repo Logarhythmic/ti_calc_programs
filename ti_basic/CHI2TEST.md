@@ -10,6 +10,10 @@ Enter the program line by line using the `PRGM` button on your calculator.
 
 **Suggested program name:** `CHITEST`
 
+## Program in Action
+
+![CHI2TEST running on the calculator](../images/chi2test.gif)
+
 **Notes on special characters:**
 
 | Character | Location |
